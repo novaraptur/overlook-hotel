@@ -19,4 +19,13 @@ describe('Room', function() {
   it('should create an instance of Room', () => {
     expect(room1).to.be.an.instanceOf(Room);
   });
+
+  it('should take an object of sample data to define its initial values', () => {
+    expect(room1.number).to.equal(1);
+    expect(room1.roomType).to.equal('residential suite');
+    expect(room1.bidet).to.equal(true);
+    expect(room1.bedSize).to.equal('queen');
+    expect(room1.numBeds).to.equal(1);
+    expect(room1.costPerNight).to.equal(358.4);
+  });
 });
