@@ -28,4 +28,13 @@ describe('Room', function() {
     expect(room1.numBeds).to.equal(1);
     expect(room1.costPerNight).to.equal(358.4);
   });
+
+  it('should have a property of nightsBooked that is an empty array by default', () => {
+    expect(room1.nightsBoooked).to.deep.equal([]);
+  });
+
+  it('should have a method to add a date to its nightsBooked', () => {
+    room1.bookRoom('2020/04/22');
+    expect(room1.nightsBooked).to.deep.equal(['2020/04/22']);
+  });
 });
