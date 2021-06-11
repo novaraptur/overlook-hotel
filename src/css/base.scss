@@ -1,7 +1,37 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,500;1,200;1,500&family=Open+Sans:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
+$primary-background: #F5F5F5;
+$link-color: #DB0A5B;
+$link-hover-color: #AA00AA;
+$primary-font-color: #141414;
+$primary-font: 'Montserrat', sans-serif;
 
 body {
-  background: $primary-background;
+  background-color: $primary-background;
+  font-family: $primary-font;
+  font-weight: 200;
+}
+
+nav {
+  align-items: center;
+  color: $primary-font-color;
+  display: flex;
+  justify-content: space-around;
+
+  h1 {
+    font-weight: 500;
+    font-size: 2em;
+  }
+}
+
+a {
+  color: $link-color;
+  font-size: 0.75em;
+  text-decoration: none;
+
+  &:hover {
+    border-bottom: 3px solid $link-hover-color;
+    color: $link-hover-color;
+  }
 }
