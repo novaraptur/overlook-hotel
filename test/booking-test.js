@@ -47,7 +47,6 @@ describe.only('Booking', function() {
 
   it('should not be able to book a room if the room is already booked for that date', () => {
     booking1.requestRoom(rooms);
-    booking4.requestRoom(rooms);
     expect(booking4.requestRoom()).to.equal(`We're sorry, the room you've selected is already booked for that date.`);
     expect(room1.nightsBooked).to.deep.equal(['2020/04/22']);
   });

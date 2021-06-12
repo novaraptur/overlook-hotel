@@ -1,5 +1,4 @@
 
-import Room from './room';
 
 class Booking {
   constructor(booking) {
@@ -11,13 +10,15 @@ class Booking {
   }
 
   findRoom(rooms) {
+    console.log(rooms);
     return rooms.find((room) => {
+      //console.log(room);
       return (room.number === this.roomNumber);
     });
   }
 
-  requestRoom(allRooms) {
-    let room = this.findRoom(allRooms);
+  requestRoom(rooms) {
+    let room = this.findRoom(rooms);
     if (room) {
       if (!room.nightsBooked.includes(this.date)) {
         room.bookRoom(this.date);
