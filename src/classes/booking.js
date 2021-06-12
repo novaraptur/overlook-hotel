@@ -1,4 +1,7 @@
 
+import {retrieveData} from '../api-calls';
+import Room from './room';
+
 class Booking {
   constructor(booking) {
     this.id = booking.id;
@@ -9,11 +12,18 @@ class Booking {
   }
 
   findRoom() {
-    //look through database of rooms and return room corresponding to this.roomNumber
+    let allData = retrieveData();
+    let allRooms = allData[1];
+    let foundRoom = allRooms.find((room) => {
+      if (room.number === this.roomNumber) {
+        return;
+      }
+    });
+    return foundRoom;
   }
 
   requestRoom() {
-    let room = this.findRoom();
+    let room = new Room(this.findRoom());
     if (room) {
       if (!room.nightsBooked.includes(this.date)) {
         room.bookRoom(this.date);
@@ -24,14 +34,6 @@ class Booking {
     } else {
       return 'We\'re sorry, we can\'t find that room in our database.';
     }
-    //if room exists
-      // if room.nightsBooked does not include this.date
-        // room.bookRoom(this.date)
-        // return 'Room booked successfully!'
-      // else
-        //return 'We're sorry, the room you've selected is already booked for that date.'
-    //else if room undefined
-      //return 'We're sorry, we can't find that room in our database.'
   }
 }
 

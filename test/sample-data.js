@@ -30,7 +30,7 @@ const sampleData = {
       "id": "5fwrgu4i7k55hl6t5",
       "userID": 1,
       "date": "2020/01/24",
-      "roomNumber": 24,
+      "roomNumber": 30053,
       "roomServiceCharges": []
     },
     {

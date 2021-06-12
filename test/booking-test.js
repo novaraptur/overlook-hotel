@@ -4,7 +4,7 @@ import sampleData from './sample-data.js';
 import Booking from '../src/classes/booking.js';
 import Room from '../src/classes/room.js';
 
-describe('Booking', function() {
+describe.only('Booking', function() {
 
   let booking1, booking2, room1, room2, booking3, booking4, booking5;
 
