@@ -29,6 +29,10 @@ class Booking {
       return 'We\'re sorry, we can\'t find that room in our database.';
     }
   }
+
+  addRoomServiceCharge(charge) {
+    this.roomServiceCharges.push(charge);
+  }
 }
 
 export default Booking;
