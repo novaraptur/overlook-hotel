@@ -57,11 +57,6 @@ describe('Booking', function() {
     expect(room1.nightsBooked).to.deep.equal(['2020/04/22', '2020/05/14']);
   });
 
-  it('should not be able to book a room if the user does not exist', () => {
-    booking3.requestRoom();
-    expect(booking3.requestRoom()).to.equal(`We're sorry, we cannot find your user info in our database.`);
-  });
-
   it('should be able to add a charge to room service', () => {
     booking1.addRoomServiceCharge(50);
     expect(booking1.roomServiceCharges).to.deep.equal([50]);

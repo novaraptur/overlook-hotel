@@ -12,6 +12,7 @@ describe('Customer', function() {
   beforeEach(() => {
     booking1 = new Booking(sampleData.bookingsSampleData[0]);
     booking2 = new Booking(sampleData.bookingsSampleData[1]);
+    booking3 = new Booking(sampleData.bookingsSampleData[3]);
     room1 = new Room(sampleData.roomSampleData[0]);
     room2 = new Room(sampleData.roomSampleData[1]);
     customer1 = new Customer(sampleData.customerSampleData[0]);
@@ -25,5 +26,36 @@ describe('Customer', function() {
 
   it('should create an instance of Customer', () => {
     expect(customer1).to.be.an.instanceOf(Customer);
+  });
+
+  it('should take an object and derive its properties from that', () => {
+    expect(customer1.name).to.equal('Leatha Ullrich');
+    expect(customer1.id).to.equal(1);
+  });
+
+  it('should have an array of bookings that is empty initially', () => {
+    expect(customer1.bookings).to.deep.equal([]);
+  });
+
+  it('should be able to create a new Booking and add it to its bookings', () => {
+    customer1.createBooking(booking3);
+    expect(customer1.bookings).to.deep.equal([{
+      "id": "5fwrgu4i7k55hl6t5",
+      "userID": 1,
+      "date": "2020/04/22",
+      "roomNumber": 1,
+      "roomServiceCharges": []
+    }]);
+  });
+
+  it('should be able to request a room after creating a new Booking', () => {
+    customer1.createBooking(booking3);
+    expect(room1.nightsBooked).to.deep.equal(['2020/04/22']);
+  });
+
+  it('should not have an unsuccessful Booking pushed into its array of bookings', () => {
+    customer1.createBooking(booking3);
+    customer2.createBooking(booking1);
+    expect(customer2.bookings).to.deep.equal([]);
   });
 });
