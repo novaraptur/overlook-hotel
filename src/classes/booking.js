@@ -1,5 +1,4 @@
 
-import {retrieveData} from '../api-calls';
 import Room from './room';
 
 class Booking {
@@ -11,19 +10,14 @@ class Booking {
     this.roomServiceCharges = booking.roomServiceCharges;
   }
 
-  findRoom() {
-    let allData = retrieveData();
-    let allRooms = allData[1];
-    let foundRoom = allRooms.find((room) => {
-      if (room.number === this.roomNumber) {
-        return;
-      }
+  findRoom(rooms) {
+    return rooms.find((room) => {
+      return (room.number === this.roomNumber);
     });
-    return foundRoom;
   }
 
-  requestRoom() {
-    let room = new Room(this.findRoom());
+  requestRoom(allRooms) {
+    let room = this.findRoom(allRooms);
     if (room) {
       if (!room.nightsBooked.includes(this.date)) {
         room.bookRoom(this.date);
