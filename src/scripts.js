@@ -1,10 +1,23 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
 
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+import './images/turing-logo.png';
 
-console.log('This is the JavaScript entry file - your code begins here.');
+const bookingsSection = document.querySelector("#bookings");
+const customerInfoSection = document.querySelector("#customerInfo");
+
+//for It1
+// Load random user and assign currentUser to that
+// Display all bookings and amount spent
+
+//for It2
+// Allow user to select date they'd like to stay
+// Show only available rooms for that date
+// Allow user to filter rooms by roomType
+// Allow to create new booking
+// If no available rooms, display apology message
+
+//for It3
+// BEFORE ANY CHANGES: create new branch of just existing dashboard code & push to GH
+// when user first arrives, should see login page
+// should enter login & see dashboard with data associated with user that has that login
