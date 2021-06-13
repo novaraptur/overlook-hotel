@@ -10,9 +10,7 @@ class Booking {
   }
 
   findRoom(rooms) {
-    console.log(rooms);
     return rooms.find((room) => {
-      //console.log(room);
       return (room.number === this.roomNumber);
     });
   }

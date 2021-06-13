@@ -42,12 +42,12 @@ describe.only('Booking', function() {
 
   it('should not be able to book a room if the room does not exist', () => {
     booking2.requestRoom(rooms);
-    expect(booking2.requestRoom()).to.equal(`We're sorry, we can't find that room in our database.`);
+    expect(booking2.requestRoom(rooms)).to.equal(`We're sorry, we can't find that room in our database.`);
   });
 
   it('should not be able to book a room if the room is already booked for that date', () => {
     booking1.requestRoom(rooms);
-    expect(booking4.requestRoom()).to.equal(`We're sorry, the room you've selected is already booked for that date.`);
+    expect(booking4.requestRoom(rooms)).to.equal(`We're sorry, the room you've selected is already booked for that date.`);
     expect(room1.nightsBooked).to.deep.equal(['2020/04/22']);
   });
 
