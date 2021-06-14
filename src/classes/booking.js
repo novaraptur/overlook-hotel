@@ -32,6 +32,11 @@ class Booking {
   addRoomServiceCharge(charge) {
     this.roomServiceCharges.push(charge);
   }
+
+  getTotalCostOfStay(rooms) {
+    let room = this.findRoom(rooms);
+    return room.costPerNight;
+  }
 }
 
 export default Booking;

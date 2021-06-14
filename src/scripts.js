@@ -15,19 +15,19 @@ const customerInfoSection = document.querySelector("#customerInfo");
 // Load random user and assign currentUser to that
 // Display all bookings and amount spent
 
-let currentUser;
+let currentUser, customerData, bookingData, roomData;
 
 window.onload = () => {
   retrieveData()
     .then((promise) => {
-      let customerData = promise[0].customers.map((customer) => new Customer(customer));
-      let bookingData = promise[2].bookings.map((booking) => new Booking(booking));
-      let roomData = promise[1].rooms.map((room) => new Room(room));
-      startApp(customerData, bookingData, roomData);
+      customerData = promise[0].customers.map((customer) => new Customer(customer));
+      bookingData = promise[2].bookings.map((booking) => new Booking(booking));
+      roomData = promise[1].rooms.map((room) => new Room(room));
+      startApp();
     });
 }
 
-function startApp(customerData, bookingData, roomData) {
+function startApp() {
   currentUser = customerData[Math.floor(Math.random() * 50) + 1];
   bookingData.forEach((booking) => {
     booking.requestRoom(roomData);
@@ -36,6 +36,21 @@ function startApp(customerData, bookingData, roomData) {
     customer.addExistingBookings(bookingData);
   });
   console.log(currentUser);
+  displayUserInfo();
+}
+
+function displayUserInfo() {
+  // bookingsSection.insertAdjacentHTML('afterbegin', `
+  // <article class="userInfoCard"" id="userBookingsInfo">
+  //   ${}
+  // </article>
+  // `);
+  customerInfoSection.insertAdjacentHTML('afterbegin', `
+  <article class="userInfoCard">
+    <h3>Total Amount Spent</h3>
+    <p>${currentUser.calculateTotalSpent(roomData)}</p>
+  </article>
+  `);
 }
 
 //for It2
