@@ -44,3 +44,19 @@ main {
 h3 {
   border-bottom: 3px solid $link-color;
 }
+
+button {
+  background-color: $primary-background;
+  border: 3px solid $link-color;
+  border-radius: 10px;
+  color: $link-color;
+  font-size: 1em;
+  padding: 5%;
+  margin: 10% 0%;
+
+  &:hover {
+    background-color: $link-hover-color;
+    border-color: $link-hover-color;
+    color: $primary-background;
+  }
+}
