@@ -28,7 +28,7 @@ window.onload = () => {
 }
 
 function startApp() {
-  currentUser = customerData[Math.floor(Math.random() * 50) + 1];
+  currentUser = customerData[Math.floor(Math.random() * 50)];
   bookingData.forEach((booking) => {
     booking.requestRoom(roomData);
   });
@@ -41,21 +41,22 @@ function startApp() {
 
 function displayUserInfo() {
   bookingsSection.insertAdjacentHTML('afterbegin', `
-  <article class="userInfoCard"" id="userBookingsInfo">
+  <article id="userBookingsInfo">
     <h3>Your Bookings</h3>
     ${loadUserBookings()}
   </article>
   `);
   customerInfoSection.insertAdjacentHTML('afterbegin', `
-  <article class="userInfoCard">
+  <article>
+    <h3>${currentUser.name}</h3>
     <h3>Total Amount Spent</h3>
-    <p>${currentUser.calculateTotalSpent(roomData)}</p>
+    <p>$${currentUser.calculateTotalSpent(roomData)}</p>
   </article>
   `);
 }
 
 function loadUserBookings() {
-  return currentUser.bookings.map(booking => `<p>Room ${booking.roomNumber}: ${booking.date}</p>`).join('');
+  return currentUser.bookings.map(booking => `<p><strong>${booking.date}:</strong></p><p>Room ${booking.roomNumber}</p>`).join('');
 }
 
 //for It2
