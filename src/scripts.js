@@ -40,17 +40,22 @@ function startApp() {
 }
 
 function displayUserInfo() {
-  // bookingsSection.insertAdjacentHTML('afterbegin', `
-  // <article class="userInfoCard"" id="userBookingsInfo">
-  //   ${}
-  // </article>
-  // `);
+  bookingsSection.insertAdjacentHTML('afterbegin', `
+  <article class="userInfoCard"" id="userBookingsInfo">
+    <h3>Your Bookings</h3>
+    ${loadUserBookings()}
+  </article>
+  `);
   customerInfoSection.insertAdjacentHTML('afterbegin', `
   <article class="userInfoCard">
     <h3>Total Amount Spent</h3>
     <p>${currentUser.calculateTotalSpent(roomData)}</p>
   </article>
   `);
+}
+
+function loadUserBookings() {
+  return currentUser.bookings.map(booking => `<p>Room ${booking.roomNumber}: ${booking.date}</p>`).join('');
 }
 
 //for It2
