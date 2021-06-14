@@ -32,8 +32,10 @@ function startApp(customerData, bookingData, roomData) {
   bookingData.forEach((booking) => {
     booking.requestRoom(roomData);
   });
+  customerData.forEach((customer) => {
+    customer.addExistingBookings(bookingData);
+  });
   console.log(currentUser);
-  //link up already existing bookings to user!
 }
 
 //for It2
