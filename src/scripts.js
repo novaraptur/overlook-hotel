@@ -35,12 +35,9 @@ window.onload = () => {
 dateSelector.addEventListener('change', () => {
   let selectedDate = dateSelector.value;
   let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
-  let availableRooms = roomData.filter((room) => {
-    if (!room.nightsBooked.includes(formattedDate)) {
-      return true;
-    }
-  });
-  //add in radio buttons & let them select one
+  let availableRooms = findAvailableRooms(formattedDate);
+  console.log(availableRooms);
+  displayAvailableRooms(availableRooms);
 });
 
 createBookingButton.addEventListener('click', () => {
@@ -57,7 +54,6 @@ function startApp() {
   customerData.forEach((customer) => {
     customer.addExistingBookings(bookingData);
   });
-  console.log(currentUser);
   displayUserInfo();
 }
 
@@ -101,6 +97,19 @@ function selectHotelRoom(date) {
   currentUser.createBooking(bookingInfo, roomData);
   console.log(currentUser.bookings);
   //post to booking info API too
+}
+
+function findAvailableRooms(date) {
+  let availableRooms = roomData.filter((room) => {
+    if (!room.nightsBooked.includes(date)) {
+      return true;
+    }
+  });
+  return availableRooms;
+}
+
+function displayAvailableRooms(availableRooms) {
+  
 }
 
 //BEFORE It3
