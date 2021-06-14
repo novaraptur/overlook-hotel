@@ -35,9 +35,19 @@ window.onload = () => {
 dateSelector.addEventListener('change', () => {
   let selectedDate = dateSelector.value;
   let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
-  //let displayDate = dayjs(selectedDate).format('LL');
+  let availableRooms = roomData.filter((room) => {
+    if (!room.nightsBooked.includes(formattedDate)) {
+      return true;
+    }
+  });
+  //add in radio buttons & let them select one
+});
+
+createBookingButton.addEventListener('click', () => {
+  let selectedDate = dateSelector.value;
+  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
   selectHotelRoom(formattedDate);
-})
+});
 
 function startApp() {
   currentUser = customerData[Math.floor(Math.random() * 50)];
@@ -75,22 +85,32 @@ function loadUserBookings() {
 }
 
 //for It2
-// Allow user to select date they'd like to stay
-// Show only available rooms for that date
-// Allow user to filter rooms by roomType
-// Allow to create new booking
-// If no available rooms, display apology message
+// [X] Allow user to select date they'd like to stay
+// [] Show only available rooms for that date
+// [] Allow user to filter rooms by roomType
+// [X] Allow to create new booking
+// [] If no available rooms, display apology message
 
 function selectHotelRoom(date) {
   let bookingInfo = {
-    id: 11111111,
+    id: '5fwrgu4i7k55hl6t9',
     userID: currentUser.id,
     date: date,
     roomNumber: 1
-  }
+  };
   currentUser.createBooking(bookingInfo, roomData);
   console.log(currentUser.bookings);
+  //post to booking info API too
 }
+
+//BEFORE It3
+// fix styling
+// break SCSS into diff files and utilize mixins
+// add images
+// check accessibility (ARIA, tabbing, alt, etc.)
+// add error handling to GET / POST
+// add error handling to date select & room select forms
+// break off into branch, push up, & make PR so Hannah can see it
 
 //for It3
 // BEFORE ANY CHANGES: create new branch of just existing dashboard code & push to GH
