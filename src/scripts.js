@@ -32,6 +32,13 @@ window.onload = () => {
     });
 }
 
+dateSelector.addEventListener('change', () => {
+  let selectedDate = dateSelector.value;
+  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
+  //let displayDate = dayjs(selectedDate).format('LL');
+  selectHotelRoom(formattedDate);
+})
+
 function startApp() {
   currentUser = customerData[Math.floor(Math.random() * 50)];
   bookingData.forEach((booking) => {
@@ -73,6 +80,17 @@ function loadUserBookings() {
 // Allow user to filter rooms by roomType
 // Allow to create new booking
 // If no available rooms, display apology message
+
+function selectHotelRoom(date) {
+  let bookingInfo = {
+    id: 11111111,
+    userID: currentUser.id,
+    date: date,
+    roomNumber: 1
+  }
+  currentUser.createBooking(bookingInfo, roomData);
+  console.log(currentUser.bookings);
+}
 
 //for It3
 // BEFORE ANY CHANGES: create new branch of just existing dashboard code & push to GH
