@@ -3,7 +3,7 @@ import './css/base.scss';
 
 import './images/turing-logo.png';
 
-import {retrieveData} from './api-calls';
+import {retrieveData, postData} from './api-calls';
 import Customer from './classes/customer';
 import Booking from './classes/booking';
 import Room from './classes/room';

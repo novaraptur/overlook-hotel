@@ -103,4 +103,21 @@ function retrieveData() {
   return Promise.all([getData('customers'), getData('rooms'), getData('bookings')]);
 }
 
-export {retrieveData};
+let sendData = (sentData, url) => {
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(sentData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(json => console.log("This is the Json post being sent from the API FILE", json))
+    .catch(err => console.log(err));
+}
+
+let postData = (postableData, endpoint) => {
+  return Promise.all([sendData(postableData, `http://localhost:3001/api/v1/${endpoint}`)]);
+}
+
+export {retrieveData, postData};
