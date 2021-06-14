@@ -1,7 +1,14 @@
 
 import './css/base.scss';
 
-import './images/turing-logo.png';
+import dayjs from 'dayjs';
+import dayOfYear from 'dayjs/plugin/dayOfYear';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+dayjs.extend(localizedFormat);
+dayjs.extend(dayOfYear);
+dayjs.extend(weekOfYear);
 
 import {retrieveData, postData} from './api-calls';
 import Customer from './classes/customer';
@@ -10,10 +17,8 @@ import Room from './classes/room';
 
 const bookingsSection = document.querySelector("#bookings");
 const customerInfoSection = document.querySelector("#customerInfo");
-
-//for It1
-// Load random user and assign currentUser to that
-// Display all bookings and amount spent
+const dateSelector = document.querySelector("#dateSelector");
+const createBookingButton = document.querySelector("#createBookingButton");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -42,7 +47,10 @@ function startApp() {
 function displayUserInfo() {
   bookingsSection.insertAdjacentHTML('afterbegin', `
   <article id="userBookingsInfo">
-    <h3>Your Bookings</h3>
+    <h3>Last Created Booking</h3>
+    <p><strong>${currentUser.bookings[currentUser.bookings.length - 1].date}:</strong></p>
+    <p>Room ${currentUser.bookings[currentUser.bookings.length - 1].roomNumber}</p>
+    <h3>Past Bookings</h3>
     ${loadUserBookings()}
   </article>
   `);

@@ -8,11 +8,19 @@
   </head>
   <body>
     <nav>
-      <a href=""><h2>Book A Stay</h2></a>
+      <a href="#newBooking"><h2>Book A Stay</h2></a>
       <h1>Overlook Hotel</h1>
       <a href="#bookings"><h2>My Bookings</h2></a>
     </nav>
-    <main>
+    <main id="userDashboard">
+      <section id="newBooking">
+        <h3>Create a New Booking</h3>
+        <article>
+          <label for="dateSelector">Date:</label>
+          <input id="dateSelector" type="date" name="datePick" value="" max="2022-06-13">
+          <button type="button" name="createBooking" id="createBookingButton">Create Your Booking</button>
+        </article>
+      </section>
       <section id="bookings"></section>
       <section id="customerInfo"></section>
     </main>
