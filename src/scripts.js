@@ -28,7 +28,12 @@ window.onload = () => {
 }
 
 function startApp(customerData, bookingData, roomData) {
-  //console.log(customerData.length);
+  currentUser = customerData[Math.floor(Math.random() * 50) + 1];
+  bookingData.forEach((booking) => {
+    booking.requestRoom(roomData);
+  });
+  console.log(currentUser);
+  //link up already existing bookings to user!
 }
 
 //for It2
