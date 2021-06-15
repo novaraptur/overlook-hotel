@@ -168,13 +168,7 @@ function filterAvailability() {
 
 function logIn() {
   if (!usernameInput.value || !passwordInput.value) {
-    let warningText = document.querySelector("#warning");
-    if (warningText) {
-      warningText.innerHTML = ``;
-    }
-    logInSection.insertAdjacentHTML('beforeend', `
-    <p id="warning">Input your username and password to log in.</p>
-    `);
+    resetWarningText("Input your username and password to log in.");
   } else {
     validateLogIn();
   }
@@ -182,21 +176,9 @@ function logIn() {
 
 function validateLogIn() {
   if (passwordInput.value !== 'overlook2021') {
-    let warningText = document.querySelector("#warning");
-    if (warningText) {
-      warningText.innerHTML = ``;
-    }
-    logInSection.insertAdjacentHTML('beforeend', `
-    <p>Invalid password.</p>
-    `);
+    resetWarningText("Invalid password.");
   } else if (!usernameInput.value.includes('customer')) {
-    let warningText = document.querySelector("#warning");
-    if (warningText) {
-      warningText.innerHTML = ``;
-    }
-    logInSection.insertAdjacentHTML('beforeend', `
-    <p>Invalid username.</p>
-    `);
+    resetWarningText("Invalid username.");
   } else {
     findUser();
   }
@@ -208,6 +190,20 @@ function findUser() {
     let user = customerData.find((customer) => {
       return (customer.id === data.id);
     });
+    if (!user) {
+      resetWarningText("Invalid username.");
+      return;
+    }
     startApp(user);
   });
+}
+
+function resetWarningText(warningMessage) {
+  let warningText = document.querySelector("#warning");
+  if (warningText) {
+    warningText.innerHTML = ``;
+  }
+  logInSection.insertAdjacentHTML('beforeend', `
+  <p>${warningMessage}</p>
+  `);
 }
