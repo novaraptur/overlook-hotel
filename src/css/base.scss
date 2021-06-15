@@ -47,6 +47,7 @@ section {
   display: flex;
   flex-direction: column;
   max-width: 212px;
+  margin: 8% 0;
 }
 
 h3 {
@@ -58,16 +59,19 @@ button {
   border: 3px solid $link-color;
   border-radius: 10px;
   color: $link-color;
-  display: block;
   font-size: 1em;
   padding: 5%;
-  margin: 10% 0%;
+  margin: 5% 0;
 
   &:hover {
     background-color: $link-hover-color;
     border-color: $link-hover-color;
     color: $primary-background;
   }
+}
+
+input {
+  min-height: 20px;
 }
 
 .intro {
@@ -78,13 +82,11 @@ button {
   img {
     height: 300px;
     object-fit: cover;
-    margin-bottom: 5%;
   }
 }
 
 img {
   width: 100%;
-  margin: 5% 0 0 0;
 }
 
 @media screen and (max-width: $medium-breakpoint) {
