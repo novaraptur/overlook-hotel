@@ -112,7 +112,7 @@ let sendData = (sentData, url) => {
     }
   })
     .then(response => response.json())
-    .then(json => console.log("This is the Json post being sent from the API FILE", json))
+    .then(json => console.log("SENT", json))
     .catch(err => console.log(err));
 }
 

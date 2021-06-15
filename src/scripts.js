@@ -103,7 +103,7 @@ function selectHotelRoom(date, roomNumber) {
   currentUser.createBooking(bookingInfo, roomData);
   console.log("AFTER", currentUser.bookings);
   displayUserInfo();
-  //post to booking info API too
+  postData(bookingInfo, 'bookings');
 }
 
 function findAvailableRooms(date) {
