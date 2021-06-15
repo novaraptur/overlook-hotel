@@ -30,6 +30,7 @@ const roomTypeList = document.querySelector("#roomTypeList");
 const usernameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
 const logInButton = document.querySelector("#logInButton");
+const logInSection = document.querySelector("#login");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -42,6 +43,10 @@ window.onload = () => {
       startApp();
     });
 }
+
+logInButton.addEventListener('click', () => {
+  logIn();
+});
 
 dateSelector.addEventListener('change', () => {
   filterAvailability();
@@ -157,6 +162,35 @@ function filterAvailability() {
   let selectedRoomType = roomTypeList.value;
   let availableRooms = findAvailableRooms(formattedDate, selectedRoomType);
   displayAvailableRooms(availableRooms);
+}
+
+function logIn() {
+  if (!usernameInput.value || !passwordInput.value) {
+    let warningText = document.querySelector("#warning");
+    if (warningText) {
+      warningText.innerHTML = ``;
+    }
+    logInSection.insertAdjacentHTML('beforeend', `
+    <p id="warning">Input your username and password to log in.</p>
+    `);
+  } else {
+    validateLogIn();
+  }
+}
+
+function validateLogIn() {
+  if (password !== 'overlook2021') {
+    let warningText = document.querySelector("#warning");
+    if (warningText) {
+      warningText.innerHTML = ``;
+    }
+    logInSection.insertAdjacentHTML('beforeend', `
+    <p>Invalid password.</p>
+    `);
+  } //otherwise if username is not customer + some number
+  else {
+    //call function
+  }
 }
 
 //for It3
