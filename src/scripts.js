@@ -15,6 +15,10 @@ import Customer from './classes/customer';
 import Booking from './classes/booking';
 import Room from './classes/room';
 
+import './images/hotel-exterior.jpg';
+import './images/hotel-interior.jpg';
+import './images/person-on-bed.jpg';
+
 const bookingsSection = document.querySelector("#bookings");
 const customerInfoSection = document.querySelector("#customerInfo");
 const dateSelector = document.querySelector("#dateSelector");
@@ -140,10 +144,7 @@ function displayMessage(message) {
 }
 
 //BEFORE It3
-// fix styling
 // break SCSS into diff files and utilize mixins
-// add images
-// check accessibility (ARIA, tabbing, alt, etc.)
 // add error handling to GET / POST
 // add error handling to date select & room select forms
 // break off into branch, push up, & make PR so Hannah can see it

@@ -40,11 +40,13 @@ a {
 main {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 section {
   display: flex;
   flex-direction: column;
+  max-width: 212px;
 }
 
 h3 {
@@ -68,8 +70,29 @@ button {
   }
 }
 
+.intro {
+  max-width: 100%;
+  flex-direction: row;
+  align-items: center;
+
+  img {
+    height: 300px;
+    object-fit: cover;
+    margin-bottom: 5%;
+  }
+}
+
+img {
+  width: 100%;
+  margin: 5% 0 0 0;
+}
+
 @media screen and (max-width: $medium-breakpoint) {
   main {
     flex-direction: column;
+  }
+
+  section {
+    max-width: $medium-breakpoint;
   }
 }
