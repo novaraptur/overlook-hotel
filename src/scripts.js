@@ -20,6 +20,7 @@ const customerInfoSection = document.querySelector("#customerInfo");
 const dateSelector = document.querySelector("#dateSelector");
 const createBookingButton = document.querySelector("#createBookingButton");
 const availableRoomList = document.querySelector("#availableRoomList");
+const newBookingSection = document.querySelector("#newBooking");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -100,8 +101,10 @@ function selectHotelRoom(date, roomNumber) {
     date: date,
     roomNumber: parseInt(roomNumber)
   };
-  currentUser.createBooking(bookingInfo, roomData);
-  console.log("AFTER", currentUser.bookings);
+  if (currentUser.createBooking(bookingInfo, roomData) === false) {
+    let apology = "We're sorry, there are not any rooms available for the date you've selected.";
+    displayMessage(apology);
+  };
   displayUserInfo();
   postData(bookingInfo, 'bookings');
 }
@@ -122,6 +125,16 @@ function displayAvailableRooms(availableRooms) {
     <option value="${room.number}">Room ${room.number} -- $${room.costPerNight}/night</option>
     `);
   });
+}
+
+function displayMessage(message) {
+  let userMessage = document.querySelector("#userMessage");
+  if (userMessage) {
+    userMessage.innerHTML = ``;
+  }
+  newBookingSection.insertAdjacentHTML('afterend', `
+    <h4 id="userMessage">${message}</h4>
+  `);
 }
 
 //BEFORE It3
