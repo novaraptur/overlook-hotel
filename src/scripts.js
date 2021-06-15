@@ -156,10 +156,6 @@ function displayMessage(message) {
   `);
 }
 
-//BEFORE It3
-// add error handling to date select & room select forms
-// break off into branch, push up, & make PR so Hannah can see it
-
 //for It3
 // BEFORE ANY CHANGES: create new branch of just existing dashboard code & push to GH
 // when user first arrives, should see login page
