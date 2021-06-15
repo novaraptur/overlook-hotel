@@ -41,19 +41,11 @@ window.onload = () => {
 }
 
 dateSelector.addEventListener('change', () => {
-  let selectedDate = dateSelector.value;
-  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
-  let selectedRoomType = roomTypeList.value;
-  let availableRooms = findAvailableRooms(formattedDate, selectedRoomType);
-  displayAvailableRooms(availableRooms);
+  filterAvailability();
 });
 
 roomTypeList.addEventListener('change', () => {
-  let selectedDate = dateSelector.value;
-  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
-  let selectedRoomType = roomTypeList.value;
-  let availableRooms = findAvailableRooms(formattedDate, selectedRoomType);
-  displayAvailableRooms(availableRooms);
+  filterAvailability();
 });
 
 createBookingButton.addEventListener('click', () => {
@@ -154,6 +146,14 @@ function displayMessage(message) {
   newBookingSection.insertAdjacentHTML('beforeend', `
     <h4 id="userMessage">${message}</h4>
   `);
+}
+
+function filterAvailability() {
+  let selectedDate = dateSelector.value;
+  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
+  let selectedRoomType = roomTypeList.value;
+  let availableRooms = findAvailableRooms(formattedDate, selectedRoomType);
+  displayAvailableRooms(availableRooms);
 }
 
 //for It3
