@@ -11,7 +11,7 @@ dayjs.extend(localizedFormat);
 dayjs.extend(dayOfYear);
 dayjs.extend(weekOfYear);
 
-import {retrieveData, postData} from './api-calls';
+import {retrieveData, postData, getUser} from './api-calls';
 import Customer from './classes/customer';
 import Booking from './classes/booking';
 import Room from './classes/room';
@@ -27,6 +27,11 @@ const createBookingButton = document.querySelector("#createBookingButton");
 const availableRoomList = document.querySelector("#availableRoomList");
 const newBookingSection = document.querySelector("#newBooking");
 const roomTypeList = document.querySelector("#roomTypeList");
+const usernameInput = document.querySelector("#username");
+const passwordInput = document.querySelector("#password");
+const logInButton = document.querySelector("#logInButton");
+const logInSection = document.querySelector("#login");
+const main = document.querySelector("main");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -36,9 +41,12 @@ window.onload = () => {
       customerData = promise[0].customers.map((customer) => new Customer(customer));
       bookingData = promise[2].bookings.map((booking) => new Booking(booking));
       roomData = promise[1].rooms.map((room) => new Room(room));
-      startApp();
     });
 }
+
+logInButton.addEventListener('click', () => {
+  logIn();
+});
 
 dateSelector.addEventListener('change', () => {
   filterAvailability();
@@ -55,8 +63,8 @@ createBookingButton.addEventListener('click', () => {
   selectHotelRoom(formattedDate, selectedRoomNumber);
 });
 
-function startApp() {
-  currentUser = customerData[Math.floor(Math.random() * 50)];
+function startApp(user) {
+  currentUser = user;
   bookingData.forEach((booking) => {
     booking.requestRoom(roomData);
   });
@@ -67,6 +75,8 @@ function startApp() {
 }
 
 function displayUserInfo() {
+  logInSection.classList.add('hidden');
+  main.classList.remove('hidden');
   bookingsSection.innerHTML = ``;
   bookingsSection.insertAdjacentHTML('afterbegin', `
   <article id="userBookingsInfo">
@@ -156,7 +166,44 @@ function filterAvailability() {
   displayAvailableRooms(availableRooms);
 }
 
-//for It3
-// BEFORE ANY CHANGES: create new branch of just existing dashboard code & push to GH
-// when user first arrives, should see login page
-// should enter login & see dashboard with data associated with user that has that login
+function logIn() {
+  if (!usernameInput.value || !passwordInput.value) {
+    resetWarningText("Input your username and password to log in.");
+  } else {
+    validateLogIn();
+  }
+}
+
+function validateLogIn() {
+  if (passwordInput.value !== 'overlook2021') {
+    resetWarningText("Invalid password.");
+  } else if (!usernameInput.value.includes('customer')) {
+    resetWarningText("Invalid username.");
+  } else {
+    findUser();
+  }
+}
+
+function findUser() {
+  let parsedID = parseInt(usernameInput.value.replace(/\D/g, ""));
+  getUser(parsedID).then((data) => {
+    let user = customerData.find((customer) => {
+      return (customer.id === data.id);
+    });
+    if (!user) {
+      resetWarningText("Invalid username.");
+      return;
+    }
+    startApp(user);
+  });
+}
+
+function resetWarningText(warningMessage) {
+  let warningText = document.querySelector("#warning");
+  if (warningText) {
+    warningText.innerHTML = ``;
+  }
+  logInSection.insertAdjacentHTML('beforeend', `
+  <p id="warning">${warningMessage}</p>
+  `);
+}

@@ -16,7 +16,14 @@
       <img src="./images/hotel-exterior.jpg" alt="A hotel exterior with a large pool and palm trees">
       <img src="./images/hotel-interior.jpg" alt="A hotel staircase with abstract art hanging nearby">
     </section>
-    <main id="userDashboard">
+    <section id="login">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" value="" required>
+      <label for="password">Password:</label>
+      <input type="text" id="password" name="password" value="" required>
+      <button type="button" id="logInButton" name="logInButton">Log In</button>
+    </section>
+    <main class="hidden" id="userDashboard">
       <section id="newBooking">
         <h3>Create a New Booking</h3>
         <label for="dateSelector">Date:</label>
