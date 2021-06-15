@@ -31,7 +31,7 @@ class Customer {
     if (booking.requestRoom(rooms) === 'Room booked successfully!') {
       this.bookings.push(booking);
     } else {
-      return;
+      return false;
     }
   }
 }

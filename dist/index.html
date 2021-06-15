@@ -8,14 +8,37 @@
   </head>
   <body>
     <nav>
-      <a href=""><h2>Book A Stay</h2></a>
+      <a href="#newBooking"><h2>Book A Stay</h2></a>
       <h1>Overlook Hotel</h1>
       <a href="#bookings"><h2>My Bookings</h2></a>
     </nav>
-    <main>
+    <section class="intro">
+      <img src="./images/hotel-exterior.jpg" alt="A hotel exterior with a large pool and palm trees">
+      <img src="./images/hotel-interior.jpg" alt="A hotel staircase with abstract art hanging nearby">
+    </section>
+    <main id="userDashboard">
+      <section id="newBooking">
+        <h3>Create a New Booking</h3>
+        <label for="dateSelector">Date:</label>
+        <input id="dateSelector" type="date" name="datePick" value="" max="2022-06-13">
+        <label for="roomTypeList">Filter by room type:</label>
+        <select id="roomTypeList" name="roomType">
+          <option value="">--</option>
+          <option value="residential suite">Residential Suite</option>
+          <option value="suite">Suite</option>
+          <option value="single room">Single Room</option>
+          <option value="junior suite">Junior Suite</option>
+        </select>
+        <label for="availableRoomList">Choose a room:</label>
+        <select id="availableRoomList" name="availableRooms"></select>
+        <button type="button" name="createBooking" id="createBookingButton">Create Your Booking</button>
+      </section>
       <section id="bookings"></section>
       <section id="customerInfo"></section>
     </main>
+    <footer>
+      <img src="./images/person-on-bed.jpg" alt="A person relaxing on a hotel bed">
+    </footer>
     <script src="bundle.js"></script>
   </body>
 </html>

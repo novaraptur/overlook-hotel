@@ -1,19 +1,32 @@
 
 import './css/base.scss';
+import './css/styles.scss';
 
-import './images/turing-logo.png';
+import dayjs from 'dayjs';
+import dayOfYear from 'dayjs/plugin/dayOfYear';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-import {retrieveData} from './api-calls';
+dayjs.extend(localizedFormat);
+dayjs.extend(dayOfYear);
+dayjs.extend(weekOfYear);
+
+import {retrieveData, postData} from './api-calls';
 import Customer from './classes/customer';
 import Booking from './classes/booking';
 import Room from './classes/room';
 
+import './images/hotel-exterior.jpg';
+import './images/hotel-interior.jpg';
+import './images/person-on-bed.jpg';
+
 const bookingsSection = document.querySelector("#bookings");
 const customerInfoSection = document.querySelector("#customerInfo");
-
-//for It1
-// Load random user and assign currentUser to that
-// Display all bookings and amount spent
+const dateSelector = document.querySelector("#dateSelector");
+const createBookingButton = document.querySelector("#createBookingButton");
+const availableRoomList = document.querySelector("#availableRoomList");
+const newBookingSection = document.querySelector("#newBooking");
+const roomTypeList = document.querySelector("#roomTypeList");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -27,6 +40,21 @@ window.onload = () => {
     });
 }
 
+dateSelector.addEventListener('change', () => {
+  filterAvailability();
+});
+
+roomTypeList.addEventListener('change', () => {
+  filterAvailability();
+});
+
+createBookingButton.addEventListener('click', () => {
+  let selectedDate = dateSelector.value;
+  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
+  let selectedRoomNumber = availableRoomList.value;
+  selectHotelRoom(formattedDate, selectedRoomNumber);
+});
+
 function startApp() {
   currentUser = customerData[Math.floor(Math.random() * 50)];
   bookingData.forEach((booking) => {
@@ -35,17 +63,23 @@ function startApp() {
   customerData.forEach((customer) => {
     customer.addExistingBookings(bookingData);
   });
-  console.log(currentUser);
   displayUserInfo();
 }
 
 function displayUserInfo() {
+  bookingsSection.innerHTML = ``;
   bookingsSection.insertAdjacentHTML('afterbegin', `
   <article id="userBookingsInfo">
-    <h3>Your Bookings</h3>
+  <h3>Last Created Booking</h3>
+    <article id="latestBooking">
+      <p><strong>${currentUser.bookings[currentUser.bookings.length - 1].date}:</strong></p>
+      <p>Room ${currentUser.bookings[currentUser.bookings.length - 1].roomNumber}</p>
+    </article>
+    <h3>Past Bookings</h3>
     ${loadUserBookings()}
   </article>
   `);
+  customerInfoSection.innerHTML = ``;
   customerInfoSection.insertAdjacentHTML('afterbegin', `
   <article>
     <h3>${currentUser.name}</h3>
@@ -59,12 +93,68 @@ function loadUserBookings() {
   return currentUser.bookings.map(booking => `<p><strong>${booking.date}:</strong></p><p>Room ${booking.roomNumber}</p>`).join('');
 }
 
-//for It2
-// Allow user to select date they'd like to stay
-// Show only available rooms for that date
-// Allow user to filter rooms by roomType
-// Allow to create new booking
-// If no available rooms, display apology message
+function selectHotelRoom(date, roomNumber) {
+  let message;
+  let bookingInfo = {
+    id: '5fwrgu4i7k55hl6t9',
+    userID: currentUser.id,
+    date: date,
+    roomNumber: parseInt(roomNumber)
+  };
+  if (currentUser.createBooking(bookingInfo, roomData) === false) {
+    message = "We're sorry, there are not any rooms available for the date you've selected.";
+  } else {
+    message = "Room booked successfully!";
+  }
+  displayMessage(message);
+  displayUserInfo();
+  postData(bookingInfo, 'bookings');
+}
+
+function findAvailableRooms(date, selectedRoomType) {
+  let availableRooms;
+  if (!selectedRoomType) {
+    availableRooms = roomData.filter((room) => {
+      if (!room.nightsBooked.includes(date)) {
+        return true;
+      }
+    });
+  } else {
+    availableRooms = roomData.filter((room) => {
+      if (!room.nightsBooked.includes(date) && room.roomType === selectedRoomType) {
+        return true;
+      }
+    });
+  }
+  return availableRooms;
+}
+
+function displayAvailableRooms(availableRooms) {
+  availableRoomList.innerHTML = ``;
+  availableRooms.forEach((room) => {
+    availableRoomList.insertAdjacentHTML('afterbegin', `
+    <option value="${room.number}">Room ${room.number} -- $${room.costPerNight}/night</option>
+    `);
+  });
+}
+
+function displayMessage(message) {
+  let userMessage = document.querySelector("#userMessage");
+  if (userMessage) {
+    userMessage.innerHTML = ``;
+  }
+  newBookingSection.insertAdjacentHTML('beforeend', `
+    <h4 id="userMessage">${message}</h4>
+  `);
+}
+
+function filterAvailability() {
+  let selectedDate = dateSelector.value;
+  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
+  let selectedRoomType = roomTypeList.value;
+  let availableRooms = findAvailableRooms(formattedDate, selectedRoomType);
+  displayAvailableRooms(availableRooms);
+}
 
 //for It3
 // BEFORE ANY CHANGES: create new branch of just existing dashboard code & push to GH
