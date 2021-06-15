@@ -204,6 +204,6 @@ function resetWarningText(warningMessage) {
     warningText.innerHTML = ``;
   }
   logInSection.insertAdjacentHTML('beforeend', `
-  <p>${warningMessage}</p>
+  <p id="warning">${warningMessage}</p>
   `);
 }
