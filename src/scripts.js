@@ -19,6 +19,7 @@ const bookingsSection = document.querySelector("#bookings");
 const customerInfoSection = document.querySelector("#customerInfo");
 const dateSelector = document.querySelector("#dateSelector");
 const createBookingButton = document.querySelector("#createBookingButton");
+const availableRoomList = document.querySelector("#availableRoomList");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -36,14 +37,14 @@ dateSelector.addEventListener('change', () => {
   let selectedDate = dateSelector.value;
   let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
   let availableRooms = findAvailableRooms(formattedDate);
-  console.log(availableRooms);
   displayAvailableRooms(availableRooms);
 });
 
 createBookingButton.addEventListener('click', () => {
   let selectedDate = dateSelector.value;
   let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
-  selectHotelRoom(formattedDate);
+  let selectedRoomNumber = availableRoomList.value;
+  selectHotelRoom(formattedDate, selectedRoomNumber);
 });
 
 function startApp() {
@@ -58,15 +59,19 @@ function startApp() {
 }
 
 function displayUserInfo() {
+  bookingsSection.innerHTML = ``;
   bookingsSection.insertAdjacentHTML('afterbegin', `
   <article id="userBookingsInfo">
-    <h3>Last Created Booking</h3>
-    <p><strong>${currentUser.bookings[currentUser.bookings.length - 1].date}:</strong></p>
-    <p>Room ${currentUser.bookings[currentUser.bookings.length - 1].roomNumber}</p>
+  <h3>Last Created Booking</h3>
+    <article id="latestBooking">
+      <p><strong>${currentUser.bookings[currentUser.bookings.length - 1].date}:</strong></p>
+      <p>Room ${currentUser.bookings[currentUser.bookings.length - 1].roomNumber}</p>
+    </article>
     <h3>Past Bookings</h3>
     ${loadUserBookings()}
   </article>
   `);
+  customerInfoSection.innerHTML = ``;
   customerInfoSection.insertAdjacentHTML('afterbegin', `
   <article>
     <h3>${currentUser.name}</h3>
@@ -82,20 +87,22 @@ function loadUserBookings() {
 
 //for It2
 // [X] Allow user to select date they'd like to stay
-// [] Show only available rooms for that date
+// [X] Show only available rooms for that date
 // [] Allow user to filter rooms by roomType
 // [X] Allow to create new booking
 // [] If no available rooms, display apology message
 
-function selectHotelRoom(date) {
+function selectHotelRoom(date, roomNumber) {
+  console.log("BEFORE", currentUser.bookings);
   let bookingInfo = {
     id: '5fwrgu4i7k55hl6t9',
     userID: currentUser.id,
     date: date,
-    roomNumber: 1
+    roomNumber: parseInt(roomNumber)
   };
   currentUser.createBooking(bookingInfo, roomData);
-  console.log(currentUser.bookings);
+  console.log("AFTER", currentUser.bookings);
+  displayUserInfo();
   //post to booking info API too
 }
 
@@ -109,7 +116,12 @@ function findAvailableRooms(date) {
 }
 
 function displayAvailableRooms(availableRooms) {
-  
+  availableRoomList.innerHTML = ``;
+  availableRooms.forEach((room) => {
+    availableRoomList.insertAdjacentHTML('afterbegin', `
+    <option value="${room.number}">Room ${room.number} -- $${room.costPerNight}/night</option>
+    `);
+  });
 }
 
 //BEFORE It3
