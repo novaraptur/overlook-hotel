@@ -35,3 +35,12 @@ a {
     color: $link-hover-color;
   }
 }
+
+main {
+  display: flex;
+  justify-content: space-around;
+}
+
+h3 {
+  border-bottom: 3px solid $link-color;
+}
