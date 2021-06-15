@@ -91,10 +91,10 @@ function loadUserBookings() {
 // [X] Show only available rooms for that date
 // [] Allow user to filter rooms by roomType
 // [X] Allow to create new booking
-// [] If no available rooms, display apology message
+// [X] If no available rooms, display apology message
 
 function selectHotelRoom(date, roomNumber) {
-  console.log("BEFORE", currentUser.bookings);
+  let message;
   let bookingInfo = {
     id: '5fwrgu4i7k55hl6t9',
     userID: currentUser.id,
@@ -102,9 +102,11 @@ function selectHotelRoom(date, roomNumber) {
     roomNumber: parseInt(roomNumber)
   };
   if (currentUser.createBooking(bookingInfo, roomData) === false) {
-    let apology = "We're sorry, there are not any rooms available for the date you've selected.";
-    displayMessage(apology);
-  };
+    message = "We're sorry, there are not any rooms available for the date you've selected.";
+  } else {
+    message = "Room booked successfully!";
+  }
+  displayMessage(message);
   displayUserInfo();
   postData(bookingInfo, 'bookings');
 }
@@ -132,7 +134,7 @@ function displayMessage(message) {
   if (userMessage) {
     userMessage.innerHTML = ``;
   }
-  newBookingSection.insertAdjacentHTML('afterend', `
+  newBookingSection.insertAdjacentHTML('beforeend', `
     <h4 id="userMessage">${message}</h4>
   `);
 }

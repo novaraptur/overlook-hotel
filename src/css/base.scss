@@ -42,6 +42,11 @@ main {
   justify-content: space-around;
 }
 
+section {
+  display: flex;
+  flex-direction: column;
+}
+
 h3 {
   border-bottom: 3px solid $link-color;
 }
