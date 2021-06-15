@@ -1,5 +1,6 @@
 
 import './css/base.scss';
+import './css/styles.scss';
 
 import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
@@ -100,13 +101,6 @@ function loadUserBookings() {
   return currentUser.bookings.map(booking => `<p><strong>${booking.date}:</strong></p><p>Room ${booking.roomNumber}</p>`).join('');
 }
 
-//for It2
-// [X] Allow user to select date they'd like to stay
-// [X] Show only available rooms for that date
-// [] Allow user to filter rooms by roomType
-// [X] Allow to create new booking
-// [X] If no available rooms, display apology message
-
 function selectHotelRoom(date, roomNumber) {
   let message;
   let bookingInfo = {
@@ -163,8 +157,6 @@ function displayMessage(message) {
 }
 
 //BEFORE It3
-// break SCSS into diff files and utilize mixins
-// add error handling to GET / POST
 // add error handling to date select & room select forms
 // break off into branch, push up, & make PR so Hannah can see it
 
