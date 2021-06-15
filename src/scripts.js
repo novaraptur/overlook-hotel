@@ -189,8 +189,15 @@ function validateLogIn() {
     logInSection.insertAdjacentHTML('beforeend', `
     <p>Invalid password.</p>
     `);
-  } //otherwise if username is not customer + some number
-  else {
+  } else if (!usernameInput.value.includes('customer')) {
+    let warningText = document.querySelector("#warning");
+    if (warningText) {
+      warningText.innerHTML = ``;
+    }
+    logInSection.insertAdjacentHTML('beforeend', `
+    <p>Invalid username.</p>
+    `);
+  } else {
     findUser();
   }
 }
@@ -200,7 +207,7 @@ function findUser() {
   getUser(parsedID).then((data) => {
     let user = customerData.find((customer) => {
       return (customer.id === data.id);
-    })
+    });
     startApp(user);
   });
 }
