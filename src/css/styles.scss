@@ -82,6 +82,10 @@ img {
   width: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 @media screen and (max-width: $medium-breakpoint) {
   main {
     flex-direction: column;

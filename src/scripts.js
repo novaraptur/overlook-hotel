@@ -27,6 +27,9 @@ const createBookingButton = document.querySelector("#createBookingButton");
 const availableRoomList = document.querySelector("#availableRoomList");
 const newBookingSection = document.querySelector("#newBooking");
 const roomTypeList = document.querySelector("#roomTypeList");
+const usernameInput = document.querySelector("#username");
+const passwordInput = document.querySelector("#password");
+const logInButton = document.querySelector("#logInButton");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -157,6 +160,4 @@ function filterAvailability() {
 }
 
 //for It3
-// BEFORE ANY CHANGES: create new branch of just existing dashboard code & push to GH
-// when user first arrives, should see login page
 // should enter login & see dashboard with data associated with user that has that login
