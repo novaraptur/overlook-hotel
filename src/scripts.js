@@ -11,7 +11,7 @@ dayjs.extend(localizedFormat);
 dayjs.extend(dayOfYear);
 dayjs.extend(weekOfYear);
 
-import {retrieveData, postData} from './api-calls';
+import {retrieveData, postData, getUser} from './api-calls';
 import Customer from './classes/customer';
 import Booking from './classes/booking';
 import Room from './classes/room';
@@ -197,12 +197,10 @@ function validateLogIn() {
 
 function findUser() {
   let parsedID = parseInt(usernameInput.value.replace(/\D/g, ""));
-  //NOTE -- write api call & get single user! This is just for now
-  let user = customerData.find((customer) => {
-    return (customer.id === parsedID);
+  getUser(parsedID).then((data) => {
+    let user = customerData.find((customer) => {
+      return (customer.id === data.id);
+    })
+    startApp(user);
   });
-  startApp(user);
 }
-
-//for It3
-// should enter login & see dashboard with data associated with user that has that login

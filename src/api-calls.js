@@ -120,4 +120,10 @@ let postData = (postableData, endpoint) => {
   return Promise.all([sendData(postableData, `http://localhost:3001/api/v1/${endpoint}`)]);
 }
 
-export {retrieveData, postData};
+let getUser = (id) => {
+  return fetch(`http://localhost:3001/api/v1/customers/${id}`)
+    .then(response => response.json())
+    .catch(err => console.error("not working"));
+}
+
+export {retrieveData, postData, getUser};
