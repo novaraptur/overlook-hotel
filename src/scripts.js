@@ -31,6 +31,7 @@ const usernameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
 const logInButton = document.querySelector("#logInButton");
 const logInSection = document.querySelector("#login");
+const main = document.querySelector("main");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -40,7 +41,6 @@ window.onload = () => {
       customerData = promise[0].customers.map((customer) => new Customer(customer));
       bookingData = promise[2].bookings.map((booking) => new Booking(booking));
       roomData = promise[1].rooms.map((room) => new Room(room));
-      startApp();
     });
 }
 
@@ -63,8 +63,8 @@ createBookingButton.addEventListener('click', () => {
   selectHotelRoom(formattedDate, selectedRoomNumber);
 });
 
-function startApp() {
-  currentUser = customerData[Math.floor(Math.random() * 50)];
+function startApp(user) {
+  currentUser = user;
   bookingData.forEach((booking) => {
     booking.requestRoom(roomData);
   });
@@ -75,6 +75,8 @@ function startApp() {
 }
 
 function displayUserInfo() {
+  logInSection.classList.add('hidden');
+  main.classList.remove('hidden');
   bookingsSection.innerHTML = ``;
   bookingsSection.insertAdjacentHTML('afterbegin', `
   <article id="userBookingsInfo">
@@ -179,7 +181,7 @@ function logIn() {
 }
 
 function validateLogIn() {
-  if (password !== 'overlook2021') {
+  if (passwordInput.value !== 'overlook2021') {
     let warningText = document.querySelector("#warning");
     if (warningText) {
       warningText.innerHTML = ``;
@@ -189,8 +191,17 @@ function validateLogIn() {
     `);
   } //otherwise if username is not customer + some number
   else {
-    //call function
+    findUser();
   }
+}
+
+function findUser() {
+  let parsedID = parseInt(usernameInput.value.replace(/\D/g, ""));
+  //NOTE -- write api call & get single user! This is just for now
+  let user = customerData.find((customer) => {
+    return (customer.id === parsedID);
+  });
+  startApp(user);
 }
 
 //for It3
