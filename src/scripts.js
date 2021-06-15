@@ -25,6 +25,7 @@ const dateSelector = document.querySelector("#dateSelector");
 const createBookingButton = document.querySelector("#createBookingButton");
 const availableRoomList = document.querySelector("#availableRoomList");
 const newBookingSection = document.querySelector("#newBooking");
+const roomTypeList = document.querySelector("#roomTypeList");
 
 let currentUser, customerData, bookingData, roomData;
 
@@ -41,7 +42,16 @@ window.onload = () => {
 dateSelector.addEventListener('change', () => {
   let selectedDate = dateSelector.value;
   let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
-  let availableRooms = findAvailableRooms(formattedDate);
+  let selectedRoomType = roomTypeList.value;
+  let availableRooms = findAvailableRooms(formattedDate, selectedRoomType);
+  displayAvailableRooms(availableRooms);
+});
+
+roomTypeList.addEventListener('change', () => {
+  let selectedDate = dateSelector.value;
+  let formattedDate = dayjs(selectedDate).format("YYYY/MM/DD");
+  let selectedRoomType = roomTypeList.value;
+  let availableRooms = findAvailableRooms(formattedDate, selectedRoomType);
   displayAvailableRooms(availableRooms);
 });
 
@@ -115,12 +125,21 @@ function selectHotelRoom(date, roomNumber) {
   postData(bookingInfo, 'bookings');
 }
 
-function findAvailableRooms(date) {
-  let availableRooms = roomData.filter((room) => {
-    if (!room.nightsBooked.includes(date)) {
-      return true;
-    }
-  });
+function findAvailableRooms(date, selectedRoomType) {
+  let availableRooms;
+  if (!selectedRoomType) {
+    availableRooms = roomData.filter((room) => {
+      if (!room.nightsBooked.includes(date)) {
+        return true;
+      }
+    });
+  } else {
+    availableRooms = roomData.filter((room) => {
+      if (!room.nightsBooked.includes(date) && room.roomType === selectedRoomType) {
+        return true;
+      }
+    });
+  }
   return availableRooms;
 }
 

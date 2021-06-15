@@ -21,6 +21,14 @@
         <h3>Create a New Booking</h3>
         <label for="dateSelector">Date:</label>
         <input id="dateSelector" type="date" name="datePick" value="" max="2022-06-13">
+        <label for="roomTypeList">Filter by room type:</label>
+        <select id="roomTypeList" name="roomType">
+          <option value="">--</option>
+          <option value="residential suite">Residential Suite</option>
+          <option value="suite">Suite</option>
+          <option value="single room">Single Room</option>
+          <option value="junior suite">Junior Suite</option>
+        </select>
         <label for="availableRoomList">Choose a room:</label>
         <select id="availableRoomList" name="availableRooms"></select>
         <button type="button" name="createBooking" id="createBookingButton">Create Your Booking</button>
