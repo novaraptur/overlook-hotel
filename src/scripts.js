@@ -1,6 +1,7 @@
 
 import './css/base.scss';
 import './css/styles.scss';
+import './css/media-queries.scss';
 
 import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';

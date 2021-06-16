@@ -7,3 +7,8 @@ $link-hover-color: #AA00AA;
 $primary-font-color: #141414;
 $primary-font: 'Montserrat', sans-serif;
 $medium-breakpoint: 1050px;
+
+@mixin flexed-element($justify) {
+  display: flex;
+  justify-content: $justify;
+}
