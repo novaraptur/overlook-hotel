@@ -1,6 +1,7 @@
 
 import './css/base.scss';
 import './css/styles.scss';
+import './css/media-queries.scss';
 
 import dayjs from 'dayjs';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
@@ -44,17 +45,11 @@ window.onload = () => {
     });
 }
 
-logInButton.addEventListener('click', () => {
-  logIn();
-});
+logInButton.addEventListener('click', logIn);
 
-dateSelector.addEventListener('change', () => {
-  filterAvailability();
-});
+dateSelector.addEventListener('change', filterAvailability);
 
-roomTypeList.addEventListener('change', () => {
-  filterAvailability();
-});
+roomTypeList.addEventListener('change', filterAvailability);
 
 createBookingButton.addEventListener('click', () => {
   let selectedDate = dateSelector.value;

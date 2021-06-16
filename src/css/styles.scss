@@ -10,8 +10,7 @@ body {
 nav {
   align-items: center;
   color: $primary-font-color;
-  display: flex;
-  justify-content: space-around;
+  @include flexed-element(space-around);
 
   h1 {
     font-weight: 500;
@@ -31,13 +30,12 @@ a {
 }
 
 main {
-  display: flex;
-  justify-content: space-around;
+  @include flexed-element(space-around);
   flex-wrap: wrap;
 }
 
 section {
-  display: flex;
+  @include flexed-element(flex-start);
   flex-direction: column;
   max-width: 212px;
   margin: 8% 0;
@@ -69,6 +67,7 @@ input {
 
 .intro {
   max-width: 100%;
+  @include flexed-element(flex-start);
   flex-direction: row;
   align-items: center;
 
@@ -84,14 +83,4 @@ img {
 
 .hidden {
   display: none;
-}
-
-@media screen and (max-width: $medium-breakpoint) {
-  main {
-    flex-direction: column;
-  }
-
-  section {
-    max-width: $medium-breakpoint;
-  }
 }

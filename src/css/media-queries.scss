@@ -1,0 +1,12 @@
+
+@import "./base.scss";
+
+@media screen and (max-width: $medium-breakpoint) {
+  main {
+    flex-direction: column;
+  }
+
+  section {
+    max-width: $medium-breakpoint;
+  }
+}
